@@ -17,7 +17,7 @@ _MIN_SUBSECTION_CHARS = 150
 
 
 def parse_sections(text: str) -> list[dict]:
-    pattern = re.compile(r'(ITEM\s+\d+[A-C]?\.\s+[^\n]+)', re.MULTILINE)
+    pattern = re.compile(r'(ITEM\s+\d+[A-C]?\.\s+[^\n]+)', re.MULTILINE | re.IGNORECASE)
     matches = list(pattern.finditer(text))
     sections = []
     for i, match in enumerate(matches):
