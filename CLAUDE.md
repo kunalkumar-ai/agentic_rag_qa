@@ -47,22 +47,28 @@ No router, no rewriter — the agent handles these natively.
 |---|---|
 | `config.py` | Constants (MAX_ITERATIONS=5, models) + DOCUMENTS registry |
 | `chunker.py` | Hierarchical chunking — company/year tags, 6000-char ceiling |
-| `ingest.py` | Chunk → embed → ChromaDB + BM25 |
+| `extract.py` | PDF → txt via pdfplumber (run before ingest) |
+| `ingest.py` | txt → chunk → embed → ChromaDB + BM25 |
 | `retriever.py` | Hybrid search → RRF → rerank → parent lookup |
-| `tools.py` | Tool schemas + implementations for the agent |
+| `tool_schemas.py` | OpenAI function call JSON schemas |
+| `tools.py` | Tool implementations wrapping retriever |
 | `agent.py` | ReAct loop — tool dispatch, MAX_ITERATIONS cap |
 | `query.py` | Single-question entry point |
 | `chat.py` | Conversational loop (deque maxlen=6) |
 | `logger.py` | JSON trace logging per query |
-| `sec_docs/` | 12 10-K PDFs |
+| `sec_docs/` | 12 10-K PDFs + extracted .txt files |
 | `docs/superpowers/specs/` | Design spec |
+| `docs/superpowers/plans/` | Implementation plan |
 
 ---
 
 ## How to Run
 
 ```bash
-# One-time ingestion
+# Step 1: extract PDFs to text (one-time)
+python3 extract.py
+
+# Step 2: ingest into ChromaDB + BM25 (one-time)
 python3 ingest.py
 
 # Single question
