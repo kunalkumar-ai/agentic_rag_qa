@@ -37,7 +37,7 @@ def test_agent_calls_tool_and_appends_result():
     final_response = _make_response(content="Tesla, GM, Ford are available.")
 
     with patch("agent.client.chat.completions.create", side_effect=[tool_response, final_response]):
-        with patch("agent.execute_tool", return_value='{"companies": ["tesla"]}') as mock_tool:
+        with patch("agent.execute_tool", return_value=('{"companies": ["tesla"]}', [])) as mock_tool:
             result = run_agent("What companies are available?")
 
     assert result["total_tool_calls"] == 1
@@ -50,7 +50,7 @@ def test_agent_raises_after_max_iterations():
     always_tool = _make_response(tool_calls=[tool_call])
 
     with patch("agent.client.chat.completions.create", return_value=always_tool):
-        with patch("agent.execute_tool", return_value="result"):
+        with patch("agent.execute_tool", return_value=("result", [])):
             with pytest.raises(MaxIterationsError):
                 run_agent("Infinite loop question")
 

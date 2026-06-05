@@ -26,8 +26,15 @@ def log_query(data: dict) -> str:
             args = step.get("args", {})
             if args:
                 print(f"      args: {json.dumps(args)}")
-            result_preview = str(step.get("result", ""))[:120]
-            print(f"      result: {result_preview}...")
+            chunks = step.get("chunks_metadata", [])
+            if chunks:
+                print(f"      retrieved {len(chunks)} chunks:")
+                for c in chunks:
+                    print(
+                        f"        reranker={c.get('reranker_score', 0):.4f} | "
+                        f"{c.get('company','')} {c.get('year','')} | "
+                        f"{c.get('section_name','')[:60]}"
+                    )
 
     print(f"\nANSWER:\n{answer}")
     print(f"\nTiming: {timing}ms")

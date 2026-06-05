@@ -56,17 +56,18 @@ def run_agent(question: str, history: list[dict] | None = None) -> dict:
         messages.append(msg)
 
         for tool_call in msg.tool_calls:
-            result = execute_tool(tool_call)
+            context, chunks_metadata = execute_tool(tool_call)
             args = json.loads(tool_call.function.arguments)
             trace.append({
                 "tool": tool_call.function.name,
                 "args": args,
-                "result": result[:500],
+                "chunks_metadata": chunks_metadata,
+                "result": context,
             })
             messages.append({
                 "role": "tool",
                 "tool_call_id": tool_call.id,
-                "content": result,
+                "content": context,
             })
 
     raise MaxIterationsError(f"Agent did not produce a final answer within {MAX_ITERATIONS} iterations.")

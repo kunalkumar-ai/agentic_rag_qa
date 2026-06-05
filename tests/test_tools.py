@@ -13,21 +13,24 @@ def _make_tool_call(name: str, args: dict):
 
 def test_get_document_index_returns_companies_and_years():
     tool_call = _make_tool_call("get_document_index", {})
-    result = execute_tool(tool_call)
-    data = json.loads(result)
+    context, metadata = execute_tool(tool_call)
+    data = json.loads(context)
     assert "companies" in data
     assert "years" in data
     assert "tesla" in data["companies"]
     assert "gm" in data["companies"]
     assert "ford" in data["companies"]
     assert "2024" in data["years"]
+    assert metadata == []
 
 
-def test_retrieve_returns_formatted_string():
+def test_retrieve_returns_formatted_string_and_metadata():
     mock_result = {
         "parent_texts": ["Some financial data here about revenue growth."],
         "top_child_chunks": [
             {
+                "chunk_id": "tesla_2024_child_0_0_0",
+                "parent_id": "tesla_2024_parent_0_0",
                 "section_name": "Risk Factors",
                 "company": "tesla",
                 "year": "2024",
@@ -41,10 +44,15 @@ def test_retrieve_returns_formatted_string():
             "companies": ["tesla"],
             "years": ["2024"],
         })
-        result = execute_tool(tool_call)
-    assert "tesla" in result.lower()
-    assert "2024" in result
-    assert "Some financial data" in result
+        context, metadata = execute_tool(tool_call)
+    assert "tesla" in context.lower()
+    assert "2024" in context
+    assert "Some financial data" in context
+    assert len(metadata) == 1
+    assert metadata[0]["company"] == "tesla"
+    assert metadata[0]["year"] == "2024"
+    assert metadata[0]["reranker_score"] == 0.85
+    assert metadata[0]["section_name"] == "Risk Factors"
 
 
 def test_execute_tool_raises_on_unknown_tool():
