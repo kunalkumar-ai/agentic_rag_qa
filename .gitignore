@@ -16,3 +16,9 @@ sec_docs/
 
 .DS_Store
 logs/
+
+__pycache__/
+*.pyc
+extracted_texts/
+chroma_db/
+*.pkl

@@ -63,7 +63,16 @@ Empty file — makes `tests/` a package so pytest finds imports correctly.
 ```python
 ```
 
-- [ ] **Step 4: Create the Virtual environment and install dependencies**
+- [ ] **Step 4: Create virtual environment**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Expected: `.venv/` directory created, prompt shows `(.venv)`.
+
+- [ ] **Step 5: Install dependencies**
 
 ```bash
 pip install -r requirements.txt
@@ -71,7 +80,7 @@ pip install -r requirements.txt
 
 Expected: all packages install without errors.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add requirements.txt tests/__init__.py

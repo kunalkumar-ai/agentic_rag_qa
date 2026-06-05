@@ -47,7 +47,7 @@ No router, no rewriter — the agent handles these natively.
 |---|---|
 | `config.py` | Constants (MAX_ITERATIONS=5, models) + DOCUMENTS registry |
 | `chunker.py` | Hierarchical chunking — company/year tags, 6000-char ceiling |
-| `extract.py` | PDF → txt via pdfplumber (run before ingest) |
+| `extract.py` | PDF → txt via pdfplumber, saves to `extracted_texts/` |
 | `ingest.py` | txt → chunk → embed → ChromaDB + BM25 |
 | `retriever.py` | Hybrid search → RRF → rerank → parent lookup |
 | `tool_schemas.py` | OpenAI function call JSON schemas |
@@ -56,7 +56,8 @@ No router, no rewriter — the agent handles these natively.
 | `query.py` | Single-question entry point |
 | `chat.py` | Conversational loop (deque maxlen=6) |
 | `logger.py` | JSON trace logging per query |
-| `sec_docs/` | 12 10-K PDFs + extracted .txt files |
+| `sec_docs/` | 12 10-K PDFs |
+| `extracted_texts/` | Extracted .txt files (one per PDF, output of extract.py) |
 | `docs/superpowers/specs/` | Design spec |
 | `docs/superpowers/plans/` | Implementation plan |
 

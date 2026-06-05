@@ -1,0 +1,7 @@
+openai
+chromadb
+rank-bm25
+sentence-transformers
+pdfplumber
+python-dotenv
+pytest
