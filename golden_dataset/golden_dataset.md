@@ -151,11 +151,11 @@ All answers are grounded in specific sections of the filings.
 ## Cross-Company (5 questions)
 
 ### X1 — Simple
-**Question:** Which company had higher total revenues in 2024 — Tesla or GM?
+**Question:** Which company had higher total revenues in 2024 — Tesla or Ford?
 
-**Expected answer:** Ford had the highest revenues at $184.992 billion, followed by Tesla at $97.69 billion. GM Financial's revenues were $15.875 billion (segment only). On a consolidated basis, Ford significantly outpaced Tesla in total revenues in 2024.
+**Expected answer:** Ford had significantly higher total revenues than Tesla in 2024. Ford's total revenues were $184.992 billion while Tesla's total revenues were $97.69 billion — Ford was nearly twice the size of Tesla by revenue.
 
-**Source:** Tesla 2024 10-K — ITEM 7; Ford 2024 10-K — Consolidated Statements of Income; GM 2024 10-K — ITEM 7
+**Source:** Tesla 2024 10-K — ITEM 7; Ford 2024 10-K — Consolidated Statements of Income
 
 ---
 
@@ -180,7 +180,7 @@ All answers are grounded in specific sections of the filings.
 ### X4 — Hard
 **Question:** How did Tesla's automotive gross margin trend from 2022 to 2024 compare to Ford's net income trend over the same period?
 
-**Expected answer:** Tesla's automotive gross margin declined sharply from 28.5% in 2022 to 18.4% in 2024, indicating margin compression. Ford's net income attributable to the company was $1.532 billion in 2022 (reported as net loss year-adjusted), $4.347 billion in 2023, and $5.879 billion in 2024 — a strong improvement. The contrast shows Tesla facing profitability pressure while Ford improved its bottom line over the same period.
+**Expected answer:** Tesla's automotive gross margin declined sharply from 28.5% in 2022 to 18.4% in 2024, indicating significant margin compression. Ford's net income attributable to Ford Motor Company went from a loss of $1.981 billion in 2022 to $4.347 billion in 2023 and $5.879 billion in 2024 — a dramatic recovery. The contrast shows Tesla facing profitability pressure while Ford reversed a net loss into consistent profit over the same period.
 
 **Source:** Tesla 2024 10-K — ITEM 7; Ford 2024 10-K — ITEM 7
 
