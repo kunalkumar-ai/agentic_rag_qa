@@ -21,3 +21,4 @@ __pycache__/
 *.pyc
 extracted_texts/
 chroma_db/
+*.pkl
