@@ -1,5 +1,8 @@
+import os
 import pdfplumber
 from config import DOCUMENTS
+
+EXTRACTED_TEXTS_DIR = "extracted_texts"
 
 
 def extract_pdf(pdf_path: str, txt_path: str) -> None:
@@ -16,7 +19,8 @@ def extract_pdf(pdf_path: str, txt_path: str) -> None:
 
 
 def extract_all() -> None:
-    """Extract all PDFs in the DOCUMENTS registry to .txt files."""
+    """Extract all PDFs in the DOCUMENTS registry to .txt files in extracted_texts/."""
+    os.makedirs(EXTRACTED_TEXTS_DIR, exist_ok=True)
     for doc in DOCUMENTS:
         print(f"Extracting {doc['company']} {doc['year']}...")
         extract_pdf(doc["path"], doc["txt_path"])

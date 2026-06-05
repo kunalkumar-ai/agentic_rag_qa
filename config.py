@@ -24,18 +24,18 @@ MAX_CONTEXT_CHARS = 3000
 GENERATION_TEMPERATURE = 0.3
 
 DOCUMENTS = [
-    {"company": "tesla", "year": "2022", "path": "sec_docs/tesla_2022.pdf", "txt_path": "sec_docs/tesla_2022.txt"},
-    {"company": "tesla", "year": "2023", "path": "sec_docs/tesla_2023.pdf", "txt_path": "sec_docs/tesla_2023.txt"},
-    {"company": "tesla", "year": "2024", "path": "sec_docs/tesla_2024.pdf", "txt_path": "sec_docs/tesla_2024.txt"},
-    {"company": "tesla", "year": "2025", "path": "sec_docs/tesla_2025.pdf", "txt_path": "sec_docs/tesla_2025.txt"},
-    {"company": "gm", "year": "2022", "path": "sec_docs/gm_2022.pdf", "txt_path": "sec_docs/gm_2022.txt"},
-    {"company": "gm", "year": "2023", "path": "sec_docs/gm_2023.pdf", "txt_path": "sec_docs/gm_2023.txt"},
-    {"company": "gm", "year": "2024", "path": "sec_docs/gm_2024.pdf", "txt_path": "sec_docs/gm_2024.txt"},
-    {"company": "gm", "year": "2025", "path": "sec_docs/gm_2025.pdf", "txt_path": "sec_docs/gm_2025.txt"},
-    {"company": "ford", "year": "2022", "path": "sec_docs/ford_2022.pdf", "txt_path": "sec_docs/ford_2022.txt"},
-    {"company": "ford", "year": "2023", "path": "sec_docs/ford_2023.pdf", "txt_path": "sec_docs/ford_2023.txt"},
-    {"company": "ford", "year": "2024", "path": "sec_docs/ford_2024.pdf", "txt_path": "sec_docs/ford_2024.txt"},
-    {"company": "ford", "year": "2025", "path": "sec_docs/ford_2025.pdf", "txt_path": "sec_docs/ford_2025.txt"},
+    {"company": "tesla", "year": "2022", "path": "sec_docs/tesla_2022.pdf", "txt_path": "extracted_texts/tesla_2022.txt"},
+    {"company": "tesla", "year": "2023", "path": "sec_docs/tesla_2023.pdf", "txt_path": "extracted_texts/tesla_2023.txt"},
+    {"company": "tesla", "year": "2024", "path": "sec_docs/tesla_2024.pdf", "txt_path": "extracted_texts/tesla_2024.txt"},
+    {"company": "tesla", "year": "2025", "path": "sec_docs/tesla_2025.pdf", "txt_path": "extracted_texts/tesla_2025.txt"},
+    {"company": "gm", "year": "2022", "path": "sec_docs/gm_2022.pdf", "txt_path": "extracted_texts/gm_2022.txt"},
+    {"company": "gm", "year": "2023", "path": "sec_docs/gm_2023.pdf", "txt_path": "extracted_texts/gm_2023.txt"},
+    {"company": "gm", "year": "2024", "path": "sec_docs/gm_2024.pdf", "txt_path": "extracted_texts/gm_2024.txt"},
+    {"company": "gm", "year": "2025", "path": "sec_docs/gm_2025.pdf", "txt_path": "extracted_texts/gm_2025.txt"},
+    {"company": "ford", "year": "2022", "path": "sec_docs/ford_2022.pdf", "txt_path": "extracted_texts/ford_2022.txt"},
+    {"company": "ford", "year": "2023", "path": "sec_docs/ford_2023.pdf", "txt_path": "extracted_texts/ford_2023.txt"},
+    {"company": "ford", "year": "2024", "path": "sec_docs/ford_2024.pdf", "txt_path": "extracted_texts/ford_2024.txt"},
+    {"company": "ford", "year": "2025", "path": "sec_docs/ford_2025.pdf", "txt_path": "extracted_texts/ford_2025.txt"},
 ]
 
 AVAILABLE_COMPANIES = sorted({d["company"] for d in DOCUMENTS})
