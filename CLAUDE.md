@@ -2,9 +2,7 @@
 
 ## What This Is
 
-A learning project — evolving the fixed RAG pipeline from `CascadeProjects/rag` into an agentic system built from scratch. Goal is to understand agentic patterns before using frameworks (LangGraph, LlamaIndex) or Claude.
-
-**Learning progression:** raw OpenAI function calling → frameworks → Claude
+An agentic RAG system for multi-company financial due diligence. Ask questions across Tesla, GM, and Ford 10-K filings (2022–2025) and get cited, source-grounded answers. Built from scratch using OpenAI function calling with a ReAct agent loop.
 
 ---
 
@@ -89,6 +87,6 @@ python3 chat.py
 
 ---
 
-## Previous Project
+## Reference
 
-`CascadeProjects/rag` — fixed pipeline, Tesla only, 3 years. Reference it for chunker, retriever, and logging patterns.
+`CascadeProjects/rag` — predecessor project, fixed pipeline, Tesla only. Reference for chunker, retriever, and logging patterns.
