@@ -15,12 +15,7 @@ _SYSTEM_PROMPT = (
     "Once you have enough context, write a comprehensive answer. "
     "Every sentence that states a fact or number must end with a citation in this exact format: "
     "*(Company Year 10-K — Section Name)*. Use the label from the source block the fact came from. "
-    "If retrieved context does not contain enough information to answer, say so clearly.\n\n"
-    "Query writing rules:\n"
-    "- For revenue, profit, or financial figures: use specific terms like 'total revenue consolidated statements' or 'net income financial results' — avoid generic terms like 'total revenue' alone.\n"
-    "- For segment or strategy questions about Ford: include the segment names explicitly, e.g. 'Ford Blue Ford Model e Ford Pro business segments'.\n"
-    "- For R&D or spending figures: use 'research and development expenditures' as the query term.\n"
-    "- Avoid queries that match boilerplate sections (auditor reports, controls and procedures). If retrieved chunks look like audit language rather than financial data, retry with a more specific query."
+    "If retrieved context does not contain enough information to answer, say so clearly."
 )
 
 
