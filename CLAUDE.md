@@ -97,3 +97,54 @@ python3 chat.py
 ## Reference
 
 `CascadeProjects/rag` — predecessor project, fixed pipeline, Tesla only. Reference for chunker, retriever, and logging patterns.
+
+---
+
+## Production Hardening Roadmap
+
+Goal: turn this learning project into a production-grade artifact for the job hunt. Each phase produces a measurable, demonstrable improvement — not new features, but production discipline. Apply to jobs in parallel; let interview feedback reprioritize phases 3–4.
+
+### Phase 1 — Eval harness (week 1)
+
+Build measurement before anything else. Without a number, every later change is a vibe.
+
+- `eval/golden_dataset.jsonl` — start with 20 hand-written questions, grow to 100+. Schema per line:
+  ```json
+  {"id": 1, "question": "...", "expected_companies": ["Tesla"], "expected_years": [2024], "category": "...", "ground_truth_answer": "...", "ground_truth_source_chunks": ["chunk-id-1"]}
+  ```
+- Categories to cover: `single-company-single-year`, `multi-company-single-year`, `single-company-multi-year`, `multi-company-multi-year`, `out-of-corpus`, `ambiguous`, `numeric-comparison`, `adversarial` (e.g. asking about Honda).
+- `eval/run_eval.py` — runs full pipeline on every question, records: retrieval recall@k, faithfulness, answer correctness, latency, $/query, tool calls made, iterations used.
+- `eval/results/<timestamp>.json` — versioned results. Commit them. Track metrics over time.
+- Deliverable: a graph showing baseline → improvements as you iterate.
+
+### Phase 2 — Deploy (week 2)
+
+A public URL beats a GitHub repo 10:1 for hiring managers.
+
+- FastAPI backend wrapping `agent.py` — `/query`, `/chat`, `/health`, `/stats`.
+- Minimal frontend (Next.js or Streamlit) — chat UI with cited sources rendered.
+- Host on Modal / Fly / Railway.
+- Put the URL in the README and resume.
+
+### Phase 3 — Observability + failure handling (week 3)
+
+Per-query structured logs (extend `logger.py`): tool calls, retrieval hit/miss, MAX_ITERATIONS hit, rate-limit retries, latency p50/p95, $/query.
+
+Failure modes to handle explicitly and write down:
+- MAX_ITERATIONS reached without final answer
+- Retrieval confidence below threshold
+- Out-of-corpus questions (e.g. Honda when only Tesla/GM/Ford loaded)
+- OpenAI rate-limits / transient errors
+- Concurrent requests
+
+Tiny `/dashboard` (or Streamlit sidecar) reading the logs: p50/p95 latency, $/query, eval score over time.
+
+### Phase 4 — Cost engineering + interview-driven iteration (week 4+)
+
+- Add prompt caching. Measure $/query before and after. One-line resume bullet.
+- Consider model routing (Haiku for tool-arg generation, Sonnet/4o for final answer).
+- From here on, prioritize based on what interviewers actually probe on. Candidates: LangGraph rewrite, guardrails, structured-data RAG, voice, multi-tenant auth.
+
+### Tracking
+
+Each phase ends with a commit that includes: code change + new eval results JSON + one-line note in this README explaining what moved and by how much.

@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "n_questions": 1,
+    "n_errors": 0,
+    "n_max_iterations_hit": 0,
+    "retrieval_recall_mean": 0.0,
+    "latency_ms_p50": 25726,
+    "latency_ms_p95": 25726,
+    "by_category": {
+      "single-company-single-year": {
+        "count": 1,
+        "errors": 0,
+        "recall_mean": 0.0
+      }
+    }
+  },
+  "records": [
+    {
+      "id": 1,
+      "question": "What were Tesla's main risk factors in the 2024 10-K?",
+      "category": "single-company-single-year",
+      "expected_companies": [
+        "tesla"
+      ],
+      "expected_years": [
+        "2024"
+      ],
+      "ground_truth_answer": "FILL ME IN \u2014 short factual answer with the key points the system should mention.",
+      "ground_truth_parent_ids": [
+        "FILL ME IN \u2014 parent_id(s) from chunker output that contain the answer. Run a query, inspect chunks_metadata in logs, copy the parent_ids of the chunks that actually contained the answer."
+      ],
+      "answer": "In its 2024 10-K filing, Tesla identified several main risk factors:\n\n1. **Residual Value Guarantees and Customer Credit Risk**: Tesla provides residual value guarantees to vehicle customers and partners as part of certain financing programs. If the actual resale values are lower than expected, it might impact Tesla's financial condition. Additionally, economic downturns could result in customers defaulting on payments, leading to credit losses *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n2. **Gigafactory New York Obligations**: Tesla must meet various obligations, including employment targets and significant expenditures in New York, as part of agreements with the Research Foundation for the State University of New York. Failure to meet these obligations could result in financial liabilities or termination of leases *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n3. **Security Vulnerabilities**: Tesla\u2019s products could be compromised by unauthorized access impacting product systems and data security, potentially harming the brand and operating results *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n4. **Union Activities**: Union activities could increase employee costs and disrupt operations if labor issues arise, particularly given union campaigns and potential recognition efforts *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n5. **Financial Variability**: Operating costs and revenues are subject to fluctuations depending on product development, expansion, and market introduction, which might not align quarter-to-quarter. Misalignment could affect stock prices due to unmet financial guidance *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n6. **Product Liability Claims**: Tesla is susceptible to product liability claims especially concerning the performance of its vehicles and advanced driver assistance systems. Such claims could result in lawsuits, recalls, or negative publicity *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n7. **Raw Material Availability and Costs**: The availability and costs of raw materials like lithium, nickel, and cobalt are critical to battery production. Fluctuations or shortages in these could impact production costs or growth prospects *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.\n\n8. **Electric Vehicle Market Demand**: Tesla's growth is tied to the demand for electric vehicles, which could be influenced by perceptions of EV advantages, competition, and energy costs *(Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents)*.",
+      "agent_trace": [
+        {
+          "tool": "retrieve",
+          "args": {
+            "query": "Tesla main risk factors",
+            "companies": [
+              "tesla"
+            ],
+            "years": [
+              "2024"
+            ]
+          },
+          "chunks_metadata": [
+            {
+              "chunk_id": "tesla_2024_child_24_8_0",
+              "parent_id": "tesla_2024_parent_24_8",
+              "section_name": "ITEM 1A. RISK FACTORS \u2014 Table of Contents",
+              "company": "tesla",
+              "year": "2024",
+              "reranker_score": 0.6348
+            },
+            {
+              "chunk_id": "tesla_2024_child_24_10_0",
+              "parent_id": "tesla_2024_parent_24_10",
+              "section_name": "ITEM 1A. RISK FACTORS \u2014 Table of Contents",
+              "company": "tesla",
+              "year": "2024",
+              "reranker_score": 0.3533
+            },
+            {
+              "chunk_id": "tesla_2024_child_24_18_1",
+              "parent_id": "tesla_2024_parent_24_18",
+              "section_name": "ITEM 1A. RISK FACTORS \u2014 Table of Contents",
+              "company": "tesla",
+              "year": "2024",
+              "reranker_score": 0.3193
+            },
+            {
+              "chunk_id": "tesla_2024_child_24_7_0",
+              "parent_id": "tesla_2024_parent_24_7",
+              "section_name": "ITEM 1A. RISK FACTORS \u2014 Table of Contents",
+              "company": "tesla",
+              "year": "2024",
+              "reranker_score": 0.3129
+            },
+            {
+              "chunk_id": "tesla_2024_child_24_4_1",
+              "parent_id": "tesla_2024_parent_24_4",
+              "section_name": "ITEM 1A. RISK FACTORS \u2014 Table of Contents",
+              "company": "tesla",
+              "year": "2024",
+              "reranker_score": 0.156
+            }
+          ],
+          "result": "[Source: Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents]\nSimilarly, we have provided residual value guarantees to vehicle customers and partners for certain financing programs, under which such\n  counterparties may sell their vehicles through various remarketing channels. However, actual resale values are subject to fluctuations over the term of\n  the financing arrangements, such as from one or more of the factors discussed above. If the actual resale values of any vehicles resold by our vehicle\n  customers and partners are lower than the residual values we have agreed to with them, the residual value guarantees may be triggered and, as a result,\n  our financial condition and operating results may be harmed.                      \n     Finally, our vehicle and solar energy system financing programs and our energy storage sales programs also expose us to customer credit risk. In\n  the event of a widespread economic downturn or other catastrophic event, our customers may be unable or unwilling to satisfy their payment obligations\n  to us on a timely basis or at all. If a significant number of our customers default, we may incur substantial credit losses and/or impairment charges with\n  respect to the underlying assets.                                                 \n     We must manage ongoing obligations under our agreement with the Research Foundation for the State University of New York\n     relating to our Gigafactory New York.                                          \n     We are party to an operating lease and a research and development agreement through the State University of New York (the \u201cSUNY Foundation\u201d).\n  These agreements provide for the construction and use of our Gigafactory New York, which we have primarily used for the development and production of\n  our Solar Roof and other solar products and components, energy storage components and Supercharger components, and for other lessor-approved\n  functions. Under this agreement, we are obligated to, among other things, meet employment targets as well as specified minimum numbers of personnel\n  in the State of New York and in Buffalo, New York and spend or incur $5.00 billion in combined capital, operational expenses, costs of goods sold and\n  other costs in the State of New York during a period that was initially 10 years beginning April 30, 2018. As of December 31, 2024, we have met and\n  expect to meet the requirements under this arrangement, as may be modified and discussed from time to time, based on our current and anticipated\n  level of operations. While we expect to have and grow significant operations at Gigafactory New York and the surrounding Buffalo area, any failure by us\n  in any year over the course of the term of the agreement to meet all applicable future obligations may result in our incurring financial liabilities in the\n  form of \u201cprogram payments\u201d which would not be expected to have a material adverse effect to our financial operations, the termination of our lease at\n  Gigafactory New York, and/or the need to adjust certa\n\n---\n\n[Source: Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents]\nAny unauthorized control or manipulation of our products\u2019 systems could result in loss of confidence in us and our products.\n     Our products contain complex information technology systems. For example, our vehicles and energy storage products are designed with built-in\n  data connectivity to accept and install periodic remote updates from us to improve or update their functionality. While we have implemented security\n  measures intended to prevent unauthorized access to our information technology networks, our products and their systems, malicious entities have\n  reportedly attempted, and may attempt in the future, to gain unauthorized access to modify, alter and use such networks, products and systems to gain\n  control of, or to change, our products\u2019 functionality, user interface and performance characteristics or to gain access to data stored in or generated by our\n  products. We encourage reporting of potential vulnerabilities in the security of our products through our security vulnerability reporting policy, and we\n  aim to remedy any reported and verified vulnerability. However, there can be no assurance that any vulnerabilities will not be exploited before they can\n  be identified, or that our remediation efforts are or will be successful.         \n     Any unauthorized access to or control of our products or their systems or any loss of data could result in legal claims or government investigations.\n  In addition, regardless of their veracity, reports of unauthorized access to our products, their systems or data, as well as other factors that may result in\n  the perception that our products, their systems or data are capable of being hacked, may harm our brand, prospects and operating results. We have been\n  the subject of such reports in the past.                                          \n     Our business may be adversely affected by any disruptions caused by union activities.\n     It is not uncommon for employees of certain trades at companies such as ours to belong to a union, which can result in higher employee costs and\n  increased risk of work stoppages. Moreover, regulations in some jurisdictions outside of the U.S. mandate employee participation in industrial collective\n  bargaining agreements and work councils with certain consultation rights with respect to the relevant companies\u2019 operations. Although we work diligently\n  to provide the best possible work environment for our employees, they may still decide to join or seek recognition to form a labor union, or we may be\n  required to become a union signatory. From time to time, labor unions have engaged in campaigns to organize certain of our operations, as part of which\n  such unions have filed unfair labor practice charges against us with the National Labor Relations Board (the \u201cNLRB\u201d), and they may do so in the future.\n  Any unfavorable ultimate outcome for Tesla may have a negative impact on the perception of Tesla\u2019s treatment of our employees. Furthermore, we are\n  direc\n\n---\n\n[Source: Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents]\nclass action litigation has been filed against us. While we defend such actions vigorously, any judgment against us or any future stockholder litigation\n  could result in substantial costs and a diversion of our management\u2019s attention and resources.\n                                                                                    \n     Our financial results may vary significantly from period to period due to fluctuations in our operating costs and other factors.\n     We expect our period-to-period financial results to vary based on our operating costs, which we anticipate will fluctuate as the pace at which we\n  continue to design, develop and manufacture new products and increase production capacity by expanding our current manufacturing facilities and\n  adding future facilities, may not be consistent or linear between periods. Additionally, our revenues from period to period may fluctuate as we introduce\n  existing products to new markets for the first time and as we develop and introduce new products. As a result of these factors, we believe that quarter-to-\n  quarter comparisons of our financial results, especially in the short term, are not necessarily meaningful and that these comparisons cannot be relied\n  upon as indicators of future performance. Moreover, our financial results may not meet expectations of equity research analysts, ratings agencies or\n  investors, who may be focused only on short-term quarterly financial results. If any of this occurs, the trading price of our stock could fall substantially,\n  either suddenly or over time.                                                     \n     We may fail to meet our publicly announced guidance or other expectations about our business, which could cause our stock price\n     to decline.                                                                    \n     We provide from time to time guidance regarding our expected financial and business performance. Correctly identifying key factors affecting\n  business conditions and predicting future events is inherently an uncertain process, and our guidance may not ultimately be accurate and has in the past\n  been inaccurate in certain respects, such as the timing of new product manufacturing ramps. Our guidance is based on certain assumptions such as those\n  relating to anticipated production and sales volumes (which generally are not linear throughout a given period), average sales prices, supplier and\n  commodity costs and planned cost reductions. If our guidance varies from actual results, such as due to our assumptions not being met or the impact on\n  our financial performance that could occur as a result of various risks and uncertainties, the market value of our common stock could decline significantly.\n     If Elon Musk were forced to sell shares of our common stock, either that he has pledged to secure certain personal loan obligations,\n     or in satisfaction of other obligations, such sales could cause our stock price to decline.\n  \n\n---\n\n[Source: Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents]\nWe may be required to defend or insure against product liability claims.       \n     The automobile industry generally experiences significant product liability claims, and as such we face the risk of such claims in the event our\n  vehicles do not perform or are claimed to not have performed as expected. As is true for other automakers, our vehicles have been involved and we\n  expect in the future will be involved in accidents resulting in death or personal injury, and such accidents where Autopilot, Enhanced Autopilot or FSD\n  (Supervised) features are engaged are the subject of significant public attention, especially in light of NHTSA\u2019s Standing General Order requiring reports\n  regarding certain crashes involving vehicles with advanced driver assistance systems. We have experienced, and we expect to continue to face, claims\n  and regulatory scrutiny arising from or related to misuse or claimed failures or alleged misrepresentations of such new technologies that we are\n  pioneering. In addition, the battery packs that we produce make use of lithium-ion cells. On rare occasions, lithium-ion cells can rapidly release the energy\n  they contain by venting smoke and flames in a manner that can ignite nearby materials as well as other lithium-ion cells. While we have designed our\n  battery packs to passively contain any single cell\u2019s release of energy without spreading to neighboring cells, there can be no assurance that a field or\n  testing failure of our vehicles or other battery packs that we produce will not occur, in particular due to a high-speed crash. Likewise, as our solar energy\n  systems and energy storage products generate and store electricity, they have the potential to fail or cause injury to people or property. Any product\n  liability claim may subject us to lawsuits and substantial monetary damages, product recalls or redesign efforts, and even a meritless claim may require\n  us to defend it, all of which may generate negative publicity and be expensive and time-consuming. In most jurisdictions, we generally self-insure against\n  the risk of product liability claims for vehicle exposure, meaning that any product liability claims will likely have to be paid from company funds and not by\n  insurance.                                                                        \n     We will need to maintain public credibility and confidence in our long-term business prospects in order to succeed.\n     In order to maintain and grow our business, we must maintain credibility and confidence among customers, suppliers, analysts, investors, ratings\n  agencies and other parties in our long-term financial viability and business prospects. Maintaining such confidence may be challenging due to our limited\n  operating history relative to established competitors; customer unfamiliarity with our products; any delays we may experience in scaling manufacturing,\n  delivery and service operations to meet demand; competition and uncertainty regarding the fut\n\n---\n\n[Source: Tesla 2024 10-K \u2014 ITEM 1A. RISK FACTORS \u2014 Table of Contents]\nunable to do so, we may have to curtail our planned vehicle and energy storage product production or procure additional cells from suppliers at\n  potentially greater costs, either of which may harm our business and operating results.\n                                                                                    \n     In addition, the cost and mass production of battery cells, whether manufactured by our suppliers or by us, depends in part upon the prices and\n  availability of raw materials such as lithium, nickel, cobalt and/or other metals. The prices for these materials fluctuate and their available supply may be\n  unstable, depending on market conditions and global demand for these materials. For example, as a result of increased global production of electric\n  vehicles and energy storage products, suppliers of these raw materials may be unable to meet our volume needs. Additionally, our suppliers may not be\n  willing or able to reliably meet our timelines or our cost and quality needs, which may require us to replace them with other sources. Any reduced\n  availability of these materials may impact our access to cells and our growth, and any increases in their prices may reduce our profitability if we cannot\n  recoup such costs through increased prices. Moreover, our inability to meet demand and any product price increases may harm our brand, growth,\n  prospects and operating results.                                                  \n     Our future growth and success are dependent upon consumers\u2019 demand for electric vehicles and specifically our vehicles in an\n     automotive industry that is generally competitive, cyclical and volatile.      \n     Though we continue to see increased interest and adoption of electric vehicles, if the market for electric vehicles in general and Tesla vehicles in\n  particular does not develop as we expect, develops more slowly than we expect, or if demand for our vehicles decreases in our markets or our vehicles\n  compete with each other, our business, prospects, financial condition and operating results may be harmed.\n     In addition, electric vehicles still constitute a small percentage of overall vehicle sales. As a result, the market for our vehicles could be negatively\n  affected by numerous factors, such as:                                            \n     \u2022 perceptions about electric vehicle features, quality, safety, performance and cost;\n     \u2022 perceptions about the limited range over which electric vehicles may be driven on a single battery charge, and access to charging facilities;\n     \u2022 competition, including from other types of alternative fuel vehicles, plug-in hybrid electric vehicles and high fuel-economy internal combustion\n       engine vehicles;                                                             \n     \u2022 volatility in the cost of oil, gasoline and energy;                          \n                                                                                    \n     \u2022 govern"
+        }
+      ],
+      "total_tool_calls": 1,
+      "timing_ms": 25726,
+      "iterations_used": 1,
+      "max_iterations_hit": false,
+      "error": null,
+      "retrieval": {
+        "recall": 0.0,
+        "retrieved_parent_ids": [
+          "tesla_2024_parent_24_10",
+          "tesla_2024_parent_24_18",
+          "tesla_2024_parent_24_4",
+          "tesla_2024_parent_24_7",
+          "tesla_2024_parent_24_8"
+        ]
+      },
+      "faithfulness": null,
+      "correctness": null,
+      "cost_usd": null,
+      "input_tokens": null,
+      "output_tokens": null
+    }
+  ]
+}
