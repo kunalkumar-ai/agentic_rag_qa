@@ -32,6 +32,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from agent import run_agent, MaxIterationsError  # noqa: E402
+from eval.llm_judge import judge  # noqa: E402
 
 
 # ---------- dataset ----------
@@ -83,51 +84,6 @@ def score_routing(trace: list[dict], expected_companies: list[str], expected_yea
     }
 
 
-def score_fact_coverage(answer: str | None, must_mention: list[str]) -> dict:
-    """Fraction of must_mention strings that appear in the answer (case-insensitive substring)."""
-    if not must_mention:
-        return {"score": None, "hits": [], "misses": []}
-    if not answer:
-        return {"score": 0.0, "hits": [], "misses": list(must_mention)}
-
-    answer_lc = answer.lower()
-    hits, misses = [], []
-    for fact in must_mention:
-        if fact.lower() in answer_lc:
-            hits.append(fact)
-        else:
-            misses.append(fact)
-    return {"score": len(hits) / len(must_mention), "hits": hits, "misses": misses}
-
-
-_REFUSAL_PATTERNS = [
-    "do not have",
-    "does not contain",
-    "do not contain",
-    "not include",
-    "no information",
-    "not available",
-    "no data",
-    "only contains",
-    "only includes",
-    "outside the scope",
-    "out of scope",
-    "cannot find",
-    "could not find",
-    "not in the corpus",
-    "not in my corpus",
-]
-
-
-def score_refusal(answer: str | None, should_refuse: bool) -> dict:
-    """For should_refuse=True items, the answer should explicitly state the limitation."""
-    if not should_refuse:
-        return {"score": None, "refused": None}
-    if not answer:
-        return {"score": 0.0, "refused": False}
-    answer_lc = answer.lower()
-    refused = any(p in answer_lc for p in _REFUSAL_PATTERNS)
-    return {"score": 1.0 if refused else 0.0, "refused": refused}
 
 
 _CITATION_RE = re.compile(r"\*\(([^)]+?)\)\*")
@@ -226,12 +182,17 @@ def evaluate_one(item: dict) -> dict:
         })
 
     record["routing"] = score_routing(record["agent_trace"], record["expected_companies"], record["expected_years"])
-    record["fact_coverage"] = score_fact_coverage(record["answer"], record["must_mention"])
-    record["refusal"] = score_refusal(record["answer"], record["should_refuse"])
     record["faithfulness"] = score_faithfulness(record["answer"], record["agent_trace"])
 
-    # TODO (phase 1.5): LLM-as-judge correctness against ground_truth_answer.
-    record["correctness"] = None
+    llm_scores = judge(
+        question=question,
+        answer=record["answer"],
+        ground_truth=record.get("ground_truth_answer", ""),
+        must_mention=record["must_mention"],
+    )
+    record["fact_coverage"] = llm_scores["fact_coverage"]
+    record["refusal"] = llm_scores["refusal"] if record["should_refuse"] else {"score": None, "reasoning": None}
+    record["correctness"] = llm_scores["correctness"]
     # TODO (phase 3): instrument token usage in agent.py.
     record["cost_usd"] = None
     record["input_tokens"] = None
@@ -259,7 +220,7 @@ def aggregate(records: list[dict]) -> dict:
     by_category: dict[str, dict] = {}
     for r in records:
         cat = r.get("category") or "uncategorized"
-        bucket = by_category.setdefault(cat, {"count": 0, "errors": 0, "routing": [], "fact_coverage": [], "refusal": [], "faithfulness": []})
+        bucket = by_category.setdefault(cat, {"count": 0, "errors": 0, "routing": [], "fact_coverage": [], "refusal": [], "faithfulness": [], "correctness": []})
         bucket["count"] += 1
         if r["error"]:
             bucket["errors"] += 1
@@ -267,12 +228,14 @@ def aggregate(records: list[dict]) -> dict:
         bucket["fact_coverage"].append(r["fact_coverage"]["score"])
         bucket["refusal"].append(r["refusal"]["score"])
         bucket["faithfulness"].append(r["faithfulness"]["score"])
+        bucket["correctness"].append(r["correctness"]["score"])
 
     for cat, b in by_category.items():
         b["routing_mean"] = _mean(b.pop("routing"))
         b["fact_coverage_mean"] = _mean(b.pop("fact_coverage"))
         b["refusal_mean"] = _mean(b.pop("refusal"))
         b["faithfulness_mean"] = _mean(b.pop("faithfulness"))
+        b["correctness_mean"] = _mean(b.pop("correctness"))
 
     return {
         "n_questions": len(records),
@@ -282,6 +245,7 @@ def aggregate(records: list[dict]) -> dict:
         "fact_coverage_mean": _mean([r["fact_coverage"]["score"] for r in records]),
         "refusal_mean": _mean([r["refusal"]["score"] for r in records]),
         "faithfulness_mean": _mean([r["faithfulness"]["score"] for r in records]),
+        "correctness_mean": _mean([r["correctness"]["score"] for r in records]),
         "latency_ms_p50": pct(0.5),
         "latency_ms_p95": pct(0.95),
         "by_category": by_category,
