@@ -1,0 +1,31 @@
+ Good. Here's the order I'd actually do it in — and why this order matters.
+
+  Do it in this sequence
+
+  Week 1 — Build the eval harness first. Not deployment, not observability. Eval. Reason: without a number, every other change is a vibe. With a number, every change is measurable, and you have a story to tell in interviews ("I improved retrieval recall from 0.62 to 0.81 by
+  switching to hybrid + rerank — here's the graph"). The graph is the artifact.
+
+  Concretely: build a versioned eval/ folder. 100+ questions across categories (single-company, multi-company, multi-year, out-of-corpus, ambiguous, adversarial). Ground-truth answers and ground-truth source chunks. A script that runs the full pipeline against all of them
+  and dumps a JSON: retrieval recall@k, faithfulness, answer correctness, latency, $/query. Commit the JSON. Now every change is measurable.
+
+  Week 2 — Deploy it. FastAPI backend wrapping agent.py. Tiny React or Next.js frontend (chat UI — there are templates). Host on Modal or Fly. Add a /health and /stats endpoint. Put the URL in your resume. Now you have something a hiring manager clicks.
+
+  Week 3 — Observability + failure modes. Structured logging per query (you already have logger.py — extend it). Track: tool calls made, retrieval hit/miss, MAX_ITERATIONS reached, rate-limit retries, latency p50/p95, $/query. Build a dead-simple /dashboard page (or a
+  Streamlit sidecar) that reads the logs and renders the metrics. This is the artifact that says "I think about systems, not notebooks."
+
+  Week 4 — Cost + interview iteration. By now you've started applying. Iterate based on what hiring managers actually ask. Add prompt caching and measure the delta. Add one more capability hiring managers in your target roles keep asking for (could be LangGraph, could be
+  guardrails, could be voice — driven by interview feedback, not guesses).
+
+  The very first concrete thing — do this today or tomorrow
+
+  Open agentic_rag_qa/ and create eval/golden_dataset.jsonl. Write 20 questions by hand, with this schema per line:
+
+  {"id": 1, "question": "...", "expected_companies": ["Tesla"], "expected_years": [2024], "category": "single-company-single-year", "ground_truth_answer": "...", "ground_truth_source_chunks": ["chunk-id-1", "chunk-id-2"]}
+
+  Categories to cover: single-company-single-year, multi-company-single-year, single-company-multi-year, multi-company-multi-year, out-of-corpus, ambiguous, numeric-comparison, adversarial (e.g. asking about Honda when only Tesla/GM/Ford are loaded).
+
+  20 by hand first. Then write a script that calls your existing pipeline on each, records every output + metric, and dumps a results JSON. Get the first baseline number. That's the starting line — every change you make from there is measured against it.
+
+  That's the first move. Don't expand to 100 questions yet, don't deploy yet, don't refactor anything. Just: 20 questions → run pipeline → first baseline number. Once you've done that and seen the baseline, the next steps will feel obvious.
+
+  Want me to scaffold the eval script structure to match your existing agent.py interface?
