@@ -17,7 +17,7 @@ from config import OPENAI_API_KEY
 client = OpenAI(api_key=OPENAI_API_KEY)
 JUDGE_MODEL = "gpt-4o-mini"
 
-_SYSTEM = """You are an eval judge for a financial document QA system.
+_SYSTEM_NORMAL = """You are an eval judge for a financial document QA system.
 Given a question, the system's answer, a ground truth answer, and a list of required facts, evaluate three things in a single pass:
 
 1. REFUSAL — Did the answer refuse to answer or say the information is unavailable?
@@ -43,12 +43,40 @@ Respond with this exact JSON structure:
   "reasoning": "one or two sentences covering all three"
 }"""
 
+_SYSTEM_REFUSE = """You are an eval judge for a financial document QA system.
+This question expects a REFUSAL — the correct behavior is to say the information is not available (wrong company, wrong year, out of scope, or real-time data requested).
+
+Given a question, the system's answer, a ground truth answer, and a list of required facts, evaluate three things in a single pass:
+
+1. REFUSAL — Did the answer refuse to answer or say the information is unavailable?
+   A refusal includes: saying the company/year is not in the corpus, saying it cannot provide real-time data, saying the question is out of scope, or any explicit acknowledgement it cannot answer.
+   A partial answer that also flags a limitation counts as a refusal.
+
+2. FACT COVERAGE — Which required facts are present in the answer (usually none for refusal questions).
+
+3. CORRECTNESS — How correct is the answer vs the ground truth? Use this rubric:
+   5 = Correctly refuses and explains why (e.g. states the corpus limitation)
+   4 = Refuses but explanation is vague or incomplete
+   3 = Partially refuses but also attempts an answer it shouldn't
+   2 = Mostly answers when it should refuse
+   1 = Fully answers when it should refuse, or completely wrong
+
+Respond with this exact JSON structure:
+{
+  "refused": true or false,
+  "fact_hits": [],
+  "fact_misses": [],
+  "correctness_score": 1-5,
+  "reasoning": "one or two sentences covering all three"
+}"""
+
 
 def judge(
     question: str,
     answer: str | None,
     ground_truth: str,
     must_mention: list[str],
+    should_refuse: bool = False,
 ) -> dict:
     """Single LLM call that returns all three eval metrics.
 
@@ -74,11 +102,13 @@ def judge(
         f"Required facts:\n{facts_str}"
     )
 
+    system_prompt = _SYSTEM_REFUSE if should_refuse else _SYSTEM_NORMAL
+
     try:
         response = client.chat.completions.create(
             model=JUDGE_MODEL,
             messages=[
-                {"role": "system", "content": _SYSTEM},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user},
             ],
             temperature=0,

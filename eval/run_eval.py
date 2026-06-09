@@ -189,6 +189,7 @@ def evaluate_one(item: dict) -> dict:
         answer=record["answer"],
         ground_truth=record.get("ground_truth_answer", ""),
         must_mention=record["must_mention"],
+        should_refuse=record["should_refuse"],
     )
     record["fact_coverage"] = llm_scores["fact_coverage"]
     record["refusal"] = llm_scores["refusal"] if record["should_refuse"] else {"score": None, "reasoning": None}

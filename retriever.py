@@ -5,7 +5,7 @@ from sentence_transformers import CrossEncoder
 from config import (
     OPENAI_API_KEY, EMBEDDING_MODEL, CHROMA_PATH,
     BM25_INDEX_PATH, PARENTS_PATH, RERANKER_MODEL,
-    TOP_K_DENSE, TOP_K_BM25, RRF_K,
+    TOP_K_DENSE, TOP_K_BM25, RRF_K, RERANK_POOL,
 )
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -106,7 +106,7 @@ def retrieve(question: str, companies: list[str], years: list[str], top_k: int =
     merged_ids = rrf_merge(dense_ids, bm25_ids)
     valid_ids = [cid for cid in merged_ids if cid in all_texts]
 
-    rerank_candidates = valid_ids[:20]
+    rerank_candidates = valid_ids[:RERANK_POOL]
     pairs = [[question, all_texts[cid]] for cid in rerank_candidates]
     rerank_scores_list = reranker.predict(pairs)
     reranked = sorted(zip(rerank_candidates, rerank_scores_list), key=lambda x: x[1], reverse=True)
