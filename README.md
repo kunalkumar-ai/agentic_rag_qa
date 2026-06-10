@@ -1,6 +1,6 @@
 # Financial Due Diligence Assistant
 
-**Live demo →** [your-render-url-here]  
+**Live demo →** [sec10kfinancialassistance.streamlit.app](https://sec10kfinancialassistance.streamlit.app)  
 **Source** → [github.com/kunalkumar-ai/agentic_rag_qa](https://github.com/kunalkumar-ai/agentic_rag_qa)
 
 An agentic RAG system for multi-company financial due diligence. Ask questions across Tesla, GM, and Ford 10-K filings (2022–2025) and get cited, source-grounded answers — with full retrieval transparency.

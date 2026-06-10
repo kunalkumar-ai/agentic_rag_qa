@@ -11,6 +11,7 @@ st.set_page_config(
 )
 
 HISTORY_WINDOW = 6
+LIVE_URL = "https://sec10kfinancialassistance.streamlit.app"
 GITHUB_URL = "https://github.com/kunalkumar-ai/agentic_rag_qa"
 
 # ---------- session state ----------
