@@ -9,9 +9,11 @@ EMBEDDING_MODEL = "text-embedding-3-large"
 GENERATION_MODEL = "gpt-4o"
 RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
-CHROMA_PATH = "chroma_db"
-BM25_INDEX_PATH = "bm25_index.pkl"
-PARENTS_PATH = "parents.pkl"
+import os as _os
+_INDEX_DIR = _os.environ.get("RAG_INDEX_DIR", ".")
+CHROMA_PATH = f"{_INDEX_DIR}/chroma_db"
+BM25_INDEX_PATH = f"{_INDEX_DIR}/bm25_index.pkl"
+PARENTS_PATH = f"{_INDEX_DIR}/parents.pkl"
 LOGS_DIR = "logs"
 
 MAX_ITERATIONS = 5
