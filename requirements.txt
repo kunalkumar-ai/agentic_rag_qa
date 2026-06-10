@@ -6,3 +6,4 @@ pdfplumber
 python-dotenv
 pytest
 streamlit
+huggingface_hub

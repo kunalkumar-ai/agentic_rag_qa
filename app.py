@@ -1,5 +1,8 @@
 import streamlit as st
+from download_index import download_index
 from agent import run_agent, MaxIterationsError
+
+download_index()
 
 st.set_page_config(
     page_title="Financial Due Diligence Assistant",
